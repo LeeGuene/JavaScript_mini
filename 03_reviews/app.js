@@ -30,3 +30,59 @@ const reviews = [
   }
 ];
 
+// review 내 항목들
+const img = document.querySelector("#person-img");
+const author = document.querySelector("#author");
+const job = document.querySelector("#job");
+const info = document.querySelector("#info");
+
+// 버튼
+const prevBtn = document.querySelector(".prev-btn");
+const nextBtn = document.querySelector(".next-btn");
+const randomBtn = document.querySelector(".random-btn");
+
+// review의 현재 index
+let currentItem = 0;
+
+// 웹 페이지 로딩 후, 초기값 할당
+window.addEventListener("DOMContentLoaded", function(){
+  const item = reviews[currentItem];
+  img.src = item.img;
+  author.textContent = item.name;
+  job.textContent = item.job;
+  info.textContent = item.text;
+});
+
+// 버튼마다 공통으로 실행되는 함수 정의
+function showPerson(person){
+  const item = reviews[person];
+  img.src = item.img;
+  author.textContent = item.name;
+  job.textContent = item.job;
+  info.textContent = item.text;
+}
+
+// next btn person
+nextBtn.addEventListener("click", function (){
+  currentItem++;
+  // 현재 사람(person)이 리뷰 목록의 마지막 인덱스보다 크다면
+  if(currentItem > reviews.length - 1){
+    currentItem = 0;
+  }
+  showPerson(currentItem);
+});
+
+// perv btn person
+prevBtn.addEventListener("click", function (){
+  currentItem--;
+  if(currentItem < 0){
+    currentItem = reviews.length - 1;
+  }
+  showPerson(currentItem);
+});
+
+// random btn person
+randomBtn.addEventListener("click", function (){
+  currentItem = Math.floor(Math.random() * reviews.length);
+  showPerson(currentItem);
+})
